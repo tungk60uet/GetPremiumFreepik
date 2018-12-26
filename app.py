@@ -23,10 +23,10 @@ def getPremium():
     print(link[link.rfind('_')+1:-4])
     r = requests.request("GET", "https://download.freepik.com/"+link[link.rfind('_')+1:-4], headers=headers,allow_redirects=True)
     print(r.url)
-    r2 = requests.request("GET", "https://123link.co/api?api=1153a84fc77a96e31d5971d6e66276e81b60ce66&url="+r.url)
-    shortlink=json.loads(r2.text)['shortenedUrl']
-    print(shortlink)
-    return shortlink
+    # r2 = requests.request("GET", "https://123link.co/api?api=1153a84fc77a96e31d5971d6e66276e81b60ce66&url="+r.url)
+    # shortlink=json.loads(r2.text)['shortenedUrl']
+    # print(shortlink)
+    return r.url
 if __name__ == '__main__':
     app.run()
     #getPremium()
