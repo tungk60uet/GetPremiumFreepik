@@ -2,5 +2,3 @@ gunicorn
 django-heroku
 requests
 Flask
-opencv-python
-numpy
