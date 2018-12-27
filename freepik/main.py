@@ -47,11 +47,13 @@ def getPremium():
         if img is None:
             return '<p>Flaticon Not Found</p>'
         else:
-            removeMask(img,mask)
+            if link.rfind('premium-icon')>-1:
+                removeMask(img,mask)
             retval, buffer = cv2.imencode('.png', img)
             png_as_text = base64.b64encode(buffer)
             r = requests.request("POST", "https://api.imgur.com/3/image", headers = {'Authorization': 'Client-ID 61c083c996646da'},data={'image':png_as_text})
             linkicon=json.loads(r.text)['data']['link']
+            print(linkicon)
             r2 = requests.request("GET", "https://123link.co/api?api=1153a84fc77a96e31d5971d6e66276e81b60ce66&url="+linkicon)
             shortlink=json.loads(r2.text)['shortenedUrl']
             return "<p>Flaticon "+id+": <a href='"+shortlink+"' target='_blank'>"+shortlink+"</a></p>"
@@ -66,5 +68,6 @@ def getPremium():
     else:
         return '<p>Please check your link!!</p>'
 if __name__ == '__main__':
-    mask=imUrl("https://i.imgur.com/1Ax3jx4.png")
-    app.run(host="127.0.0.1",port=80,debug=True)
+    #mask=imUrl("https://i.imgur.com/1Ax3jx4.png")
+    mask=cv2.imread("mask.png",-1)
+    app.run()
