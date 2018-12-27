@@ -67,4 +67,4 @@ def getPremium():
         return '<p>Please check your link!!</p>'
 if __name__ == '__main__':
     mask=imUrl("https://i.imgur.com/1Ax3jx4.png")
-    app.run(host="127.0.0.1",port=8080,debug=True)
+    app.run(host="127.0.0.1",port=80,debug=True)
