@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="https://cdns2.freepik.com/media/img/favicons/favicon.ico">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
@@ -11,22 +12,19 @@
     <script src="{{url_for('static', filename='script.js') }}"></script>
     <title>Get Premium Freepik</title>
 </head>
-<body style="background-image: url('https://images.unsplash.com/photo-1521449256184-170b4a4c437c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80');background-size: cover;">
+<body style="background-color: currentColor">
     <div class="container text-center mt-5">
-            <h1 style="color: aliceblue;" >GET PREMIUM FREEPIK</h1>
+            <h1 style="color: aliceblue;" >GET FREEPIK FLATICON</h1>
             <div class="row mb-2"> 
-                <div class="col-8">
-                    <input id="iplink" class="form-control" type="text">
+                <div class="col-8 pr-0">
+                    <input id="iplink" class="form-control" type="text" placeholder="Link Item from Freepik or Flaticon">
                 </div>   
                 <div class="col-4">
                     <input id="btnSubmit" class="btn btn-block btn-primary" type="button" value="Get Link" onclick="getLink();">
                 </div>                
             </div>
-            <div id="ketqua" style="background-color:#ffffff5c; padding: 1rem">
+            <div id="result" style="background-color:#eaf0f4; padding: 1rem">
             </div>
     </div>
-
-    
-   
 </body>
 </html>
