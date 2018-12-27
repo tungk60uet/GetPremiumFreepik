@@ -28,11 +28,11 @@ headers = {
     'cache-control': "no-cache"
 }
 
-app = Flask(__name__)
-
+app = Flask(__name__) 
+ 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html') 
 @app.route('/getlink',methods=['POST'])
 def getPremium():
     link=request.form['link']
@@ -64,7 +64,7 @@ def getPremium():
         shortlink=json.loads(r2.text)['shortenedUrl']
         return "<p>Freepik "+id+": <a href='"+shortlink+"' target='_blank'>"+shortlink+"</a></p>"
     else:
-        return '<p>Please check your link!!!</p>'
+        return '<p>Please check your link!!</p>'
 if __name__ == '__main__':
     mask=imUrl("https://i.imgur.com/1Ax3jx4.png")
     app.run()
