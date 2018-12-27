@@ -1,17 +1,16 @@
 import requests
 from flask import Flask, request, json,render_template
 import cv2
-# import numpy as np
-# import base64sudo apt-get update
+import numpy as np
+import base64
+mask=None
 
-# mask=None
-
-# def removeMask(src,mask):
-#     alpha=1-(1-src[:,:,3]/255)/(1-mask[:,:,3]/255)
-#     src[:,:,0]=(src[:,:,0]-mask[:,:,0]*(mask[:,:,3]/255))/(1-mask[:,:,3]/255)
-#     src[:,:,1]=(src[:,:,1]-mask[:,:,1]*(mask[:,:,3]/255))/(1-mask[:,:,3]/255)
-#     src[:,:,2]=(src[:,:,2]-mask[:,:,2]*(mask[:,:,3]/255))/(1-mask[:,:,3]/255)
-#     src[:,:,3]=alpha*255
+def removeMask(src,mask):
+    alpha=1-(1-src[:,:,3]/255)/(1-mask[:,:,3]/255)
+    src[:,:,0]=(src[:,:,0]-mask[:,:,0]*(mask[:,:,3]/255))/(1-mask[:,:,3]/255)
+    src[:,:,1]=(src[:,:,1]-mask[:,:,1]*(mask[:,:,3]/255))/(1-mask[:,:,3]/255)
+    src[:,:,2]=(src[:,:,2]-mask[:,:,2]*(mask[:,:,3]/255))/(1-mask[:,:,3]/255)
+    src[:,:,3]=alpha*255
 # def imUrl(url):
 #     res=requests.request("GET", url)
 #     img_array = np.array(bytearray(res.content), dtype=np.uint8)
