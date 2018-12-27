@@ -1,4 +1,3 @@
-gunicorn
+gunicor
 requests
 Flask
-opencv-python
