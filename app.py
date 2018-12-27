@@ -20,13 +20,15 @@ def home():
 @app.route('/getlink',methods=['POST'])
 def getPremium():
     link=request.form['link']
-    print(link[link.rfind('_')+1:-4])
+    print(link[link.rfind('_')+1:link.rfind('.')])
     r = requests.request("GET", "https://download.freepik.com/"+link[link.rfind('_')+1:-4], headers=headers,allow_redirects=True)
     print(r.url)
-    # r2 = requests.request("GET", "https://123link.co/api?api=1153a84fc77a96e31d5971d6e66276e81b60ce66&url="+r.url)
-    # shortlink=json.loads(r2.text)['shortenedUrl']
-    # print(shortlink)
-    return r.url
+    if r.url=='https://www.freepik.com/404':
+        return '<p>Lỗi</p>'
+    r2 = requests.request("GET", "https://123link.co/api?api=1153a84fc77a96e31d5971d6e66276e81b60ce66&url="+r.url)
+    shortlink=json.loads(r2.text)['shortenedUrl']
+    print(shortlink)
+    return "<a href='"+shortlink+"' target='_blank'>"+shortlink+"</a>"
 if __name__ == '__main__':
     app.run()
     #getPremium()

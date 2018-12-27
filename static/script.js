@@ -1,12 +1,13 @@
 function getLink(){
-	$("body").append("<p id='txtWait'>Đợi tí nhóe đang xử lý hihi</p>");
-	$("#btnSubmit").remove();
+    $("#btnSubmit").attr("disabled", "disabled");
+    $("#btnSubmit").val("Processing")
     $.ajax({
         method: "POST",
         url: "/getlink",
         data: { link: $("#iplink").val()}
       }).done(function(msg) {
-      	$("#txtWait").remove();
-      	$("body").append("<br><a href='"+msg+"' target='_blank'>Download</a>");
+        $("#btnSubmit").removeAttr('disabled');
+        $("#btnSubmit").val("Get Link");
+        $("#ketqua").prepend(msg);   
       });
 }
