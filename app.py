@@ -1,6 +1,6 @@
 import requests
 from flask import Flask, request, json,render_template
-# import cv2
+import cv2
 # import numpy as np
 # import base64sudo apt-get update
 
