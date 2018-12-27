@@ -2,7 +2,7 @@ import requests
 from flask import Flask, request, json,render_template
 import cv2
 import numpy as np
-import base64
+import base64sudo apt-get update
 
 mask=None
 
@@ -29,7 +29,7 @@ headers = {
 }
 
 app = Flask(__name__) 
- 
+app.config['DEBUG'] = True
 @app.route('/')
 def home():
     return render_template('home.html') 
