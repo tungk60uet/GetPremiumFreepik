@@ -34,7 +34,7 @@ app = Flask(__name__)
 def home():
     return render_template('home.html') 
 @app.route('/getlink',methods=['POST'])
-def getPremium():
+def getPremium(): 
     link=request.form['link']
     if link.rfind('flaticon.com')>-1:
         id=link[link.rfind('_')+1:]
