@@ -1,20 +1,20 @@
 import requests
 from flask import Flask, request, json,render_template
-# import cv2
-# import numpy as np
-# import base64
+import cv2
+import numpy as np
+import base64
 mask=None
 
-# def removeMask(src,mask):
-#     alpha=1-(1-src[:,:,3]/255)/(1-mask[:,:,3]/255)
-#     src[:,:,0]=(src[:,:,0]-mask[:,:,0]*(mask[:,:,3]/255))/(1-mask[:,:,3]/255)
-#     src[:,:,1]=(src[:,:,1]-mask[:,:,1]*(mask[:,:,3]/255))/(1-mask[:,:,3]/255)
-#     src[:,:,2]=(src[:,:,2]-mask[:,:,2]*(mask[:,:,3]/255))/(1-mask[:,:,3]/255)
-#     src[:,:,3]=alpha*255
-# def imUrl(url):
-#     res=requests.request("GET", url)
-#     img_array = np.array(bytearray(res.content), dtype=np.uint8)
-#     return cv2.imdecode(img_array, -1)
+def removeMask(src,mask):
+    alpha=1-(1-src[:,:,3]/255)/(1-mask[:,:,3]/255)
+    src[:,:,0]=(src[:,:,0]-mask[:,:,0]*(mask[:,:,3]/255))/(1-mask[:,:,3]/255)
+    src[:,:,1]=(src[:,:,1]-mask[:,:,1]*(mask[:,:,3]/255))/(1-mask[:,:,3]/255)
+    src[:,:,2]=(src[:,:,2]-mask[:,:,2]*(mask[:,:,3]/255))/(1-mask[:,:,3]/255)
+    src[:,:,3]=alpha*255
+def imUrl(url):
+    res=requests.request("GET", url)
+    img_array = np.array(bytearray(res.content), dtype=np.uint8)
+    return cv2.imdecode(img_array, -1)
 headers = {
     'upgrade-insecure-requests': "1",
     'dnt': "1",
@@ -35,27 +35,27 @@ def home():
 def getPremium(): 
     link=request.form['link']
     if link.rfind('flaticon.com')>-1:
-        return '<p>Please check your link!!</p>'
-        # id=link[link.rfind('_')+1:]
-        # mini_id=''
-        # if len(id)<=3:
-        #     mini_id='0'
-        # else: 
-        #     mini_id=id[:len(id)-3]
-        # img=imUrl("https://image.flaticon.com/icons/png/512/"+mini_id+"/"+id+".png")
-        # if img is None:
-        #     return '<p>Flaticon Not Found</p>'
-        # else:
-        #     if link.rfind('premium-icon')>-1:
-        #         removeMask(img,mask)
-        #     retval, buffer = cv2.imencode('.png', img)
-        #     png_as_text = base64.b64encode(buffer)
-        #     r = requests.request("POST", "https://api.imgur.com/3/image", headers = {'Authorization': 'Client-ID 61c083c996646da'},data={'image':png_as_text})
-        #     linkicon=json.loads(r.text)['data']['link']
-        #     print(linkicon)
-        #     r2 = requests.request("GET", "https://123link.co/api?api=1153a84fc77a96e31d5971d6e66276e81b60ce66&url="+linkicon)
-        #     shortlink=json.loads(r2.text)['shortenedUrl']
-        #     return "<p>Flaticon "+id+": <a href='"+shortlink+"' target='_blank'>"+shortlink+"</a></p>"
+        
+        id=link[link.rfind('_')+1:]
+        mini_id=''
+        if len(id)<=3:
+            mini_id='0'
+        else: 
+            mini_id=id[:len(id)-3]
+        img=imUrl("https://image.flaticon.com/icons/png/512/"+mini_id+"/"+id+".png")
+        if img is None:
+            return '<p>Flaticon Not Found</p>'
+        else:
+            if link.rfind('premium-icon')>-1:
+                removeMask(img,mask)
+            retval, buffer = cv2.imencode('.png', img)
+            png_as_text = base64.b64encode(buffer)
+            r = requests.request("POST", "https://api.imgur.com/3/image", headers = {'Authorization': 'Client-ID 61c083c996646da'},data={'image':png_as_text})
+            linkicon=json.loads(r.text)['data']['link']
+            print(linkicon)
+            r2 = requests.request("GET", "https://123link.co/api?api=1153a84fc77a96e31d5971d6e66276e81b60ce66&url="+linkicon)
+            shortlink=json.loads(r2.text)['shortenedUrl']
+            return "<p>Flaticon "+id+": <a href='"+shortlink+"' target='_blank'>"+shortlink+"</a></p>"
     elif link.rfind('freepik.com')>-1:        
         id=link[link.rfind('_')+1:link.rfind('.htm')]
         r = requests.request("GET", "https://download.freepik.com/"+id, headers=headers,allow_redirects=True)
@@ -68,5 +68,5 @@ def getPremium():
         return '<p>Please check your link!!</p>'
 if __name__ == '__main__':
     #mask=imUrl("https://i.imgur.com/1Ax3jx4.png")
-    #mask=cv2.imread("mask.png",-1)
+    mask=cv2.imread("mask.png",-1)
     app.run()
